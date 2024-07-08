@@ -1,0 +1,7 @@
+.toolbar-wrapper {
+  background-color: red !important;
+  height: 100px;
+  font-size: larger;
+  font-weight: bold;
+  color: white;
+}

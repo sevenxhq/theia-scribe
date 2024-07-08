@@ -1,0 +1,40 @@
+{
+  "name": "scribe-theia",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.0.0",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@theia/core": "latest",
+    "@theia/toolbar": "latest",
+    "npm-watch": "^0.13.0"
+  },
+  "devDependencies": {
+    "rimraf": "latest",
+    "typescript": "^5.5.3"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "build": "tsc",
+    "watch": "npm-watch build"
+  },
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/scribe-theia-frontend-module"
+    }
+  ],
+  "watch": {
+    "build": {
+      "patterns": [
+        "src/**/*"
+      ],
+      "extensions": "ts,html,scss,css,tsx,json",
+      "quiet": false
+    }
+  }
+}

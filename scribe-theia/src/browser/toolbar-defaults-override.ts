@@ -10,7 +10,7 @@ export const ToolbarDefaultsOverride: () => DeflatedToolbarTree = () => ({
         {
           id: "textEditor.commands.go.back",
           command: "textEditor.commands.go.back",
-          icon: "codicon codicon-arrow-left",
+          icon: "codicon codicon-add",
         },
         {
           id: "textEditor.commands.go.forward",
@@ -30,6 +30,10 @@ export const ToolbarDefaultsOverride: () => DeflatedToolbarTree = () => ({
     ],
     [ToolbarAlignment.RIGHT]: [
       [
+        {
+          id: "scribe-theia-layout-toolbar-contribution",
+          group: "contributed",
+        },
         {
           id: "workbench.action.showCommands",
           command: "workbench.action.showCommands",

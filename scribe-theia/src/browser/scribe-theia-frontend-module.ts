@@ -7,6 +7,7 @@ import { ToolbarDefaultsFactory } from "@theia/toolbar/lib/browser/toolbar-defau
 
 import "../../src/browser/scribe-theia-styles.css";
 import { ToolbarDefaultsOverride } from "./toolbar-defaults-override";
+import { bindAllToolbarContributions } from "./toolbar-contributions";
 
 export default new ContainerModule(
   (
@@ -21,5 +22,6 @@ export default new ContainerModule(
     // Replace this line with the desired binding, e.g. "bind(CommandContribution).to(ScribeTheiaContribution)
     bind(ScribeTheiaContribution).toSelf();
     rebind(ToolbarDefaultsFactory).toConstantValue(ToolbarDefaultsOverride);
+    bindAllToolbarContributions(bind);
   }
 );

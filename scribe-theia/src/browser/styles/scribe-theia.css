@@ -18,13 +18,8 @@
 .p-Widget.theia-sidepanel-toolbar.theia-right-side-panel.p-BoxPanel-child {
 background-color: white;
 }
-.p-Widget.p-Panel.theia-app-sidebar-container.p-BoxPanel-child{
-display: none;
-}
-.p-Widget.p-TabBar.theia-app-right.theia-app-sides {
-  display: none;
 
-}
+
 .p-Widget.p-Panel.p-SplitPanel {
 padding-top: 10px !important;
 
@@ -32,10 +27,10 @@ padding-top: 10px !important;
 .toolbar-column.left {
   display: none;
 }
-.p-TabBar-tab.p-mod-closable {
+/* .p-TabBar-tab.p-mod-closable {
   display: none;
 
-}
+} */
 .p-Widget.p-TabBar-toolbar.ps {
 height: 40px !important;
 }
@@ -81,10 +76,8 @@ font-size: 14px !important;
   gap: 10px;
 
 }
-.p-Widget p-Panel p-BoxPanel p-SplitPanel-child {
-  display: none;
-}
-.codicon-terminal {
-  display: none;
+.p-Widget.p-TabBar.theia-app-right.theia-app-sides {
+  border-left: 1px solid rgb(228 228 231);
 
 }
+

@@ -9,19 +9,31 @@
     "src"
   ],
   "dependencies": {
+    "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@svgr/webpack": "^8.1.0",
+    "@tabler/icons-react": "^3.3.0",
     "@theia/core": "latest",
     "@theia/toolbar": "latest",
-    "npm-watch": "^0.13.0"
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lodash": "^4.17.21",
+    "lucide-react": "^0.378.0",
+    "npm-watch": "^0.13.0",
+    "react-resizable-panels": "^2.0.19",
+    "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "rimraf": "latest",
+    "tailwindcss": "^3.4.4",
     "typescript": "^5.5.3"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
     "clean": "rimraf lib",
     "build": "tsc",
-    "watch": "npm-watch build"
+    "watch": "concurrently \"npm-watch build\" \"npx tailwindcss -i ./src/browser/styles/globals.css -o ./lib/browser/output-tailwind.css --watch\" --kill-others"
   },
   "theiaExtensions": [
     {

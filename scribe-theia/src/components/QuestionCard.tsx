@@ -41,14 +41,12 @@ export default function QuestionCard({
             <IconMessage size={12} stroke={1.5} strokeLinejoin="miter" />
           </Badge>
           <span className="flex min-h-7 min-w-7   rounded-full">
-            <picture>
               <img
                 crossOrigin="anonymous"
-                src="/images/ellipse.png"
+                src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
                 alt="avatar"
                 className="h-7 w-7 rounded-full object-cover"
               />{" "}
-            </picture>
           </span>
           <div className="space-y-1 w-full  dark:text-zinc-500 text-zinc-400 text-[10px]  font-normal ">
             <span className="flex uppercase leading-3 font-medium w-full justify-between ">
@@ -56,11 +54,11 @@ export default function QuestionCard({
               <span className="ml-auto">Mark 1:23</span>
             </span>
 
-            <div className="question-image relative min-h-20 max-h-20 w-full">
+            <div className="question-image relative h-20  w-[20vw]]">
               <img
-                src="/images/cathedral.png"
+                src="https://s3-alpha-sig.figma.com/img/7816/da5f/683281031f78c391503a0d387f6cc257?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=B50fDu5LHtplgGEHgjVgTgHCQzqT-PJoBIT-HiGdovD8vSar9sJiizBE5a79rX-PIPS0Iok-w8tV9VVkB3G1FnFLr22Z8FH~VnPfAdBd7X3mqWRCUFOl8WwpjMA7ifBVtddH~GRaOg5wcFAbKYeftwxTCfSPpM3qCI5oatLykui~BvUdh~LHwCRec48V1T~tpDdaVOt2U4mVkKuh-H4pDRnoRSKRFIQdIcQUdjyNk1f7BAWyhBhAucUOHrlJcCiQyo91KeEIEKNLhvYS8h5qyGjopvFqQ~MM~FxQgRdM-sd1abjptQsATe7K~WFAK52H~t-PcEQKq1Be1jZDnYRHYQ__"
                 alt="org Image"
-                className="rounded-[10px] w-full"
+                className="rounded-[10px] object-cover h-full w-full"
               />
             </div>
             <p className="font-normal tracking-wide leading-[14px] text-[10px] text-zinc-700 dark:text-zinc-50">
@@ -74,14 +72,12 @@ export default function QuestionCard({
             <IconMessage size={12} stroke={1.5} strokeLinejoin="miter" />
           </Badge>
           <span className="flex min-h-7 min-w-7   rounded-full">
-            <picture>
               <img
                 crossOrigin="anonymous"
-                src="/images/user.png"
+                src="https://s3-alpha-sig.figma.com/img/3c9c/ccbe/cfad2b1fe9b00018a8247cefd2d118d1?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KmqDdEGr5flM0JFYAMQKOFxA31lT633z7JDTmgum9wrfedjycPqqUPZL6ba7rIJxIC6sKCQPdRTVSwqw~Lje~wwzfATDkBMtti9c8mS37VgihuWTp~7N9YouRZa1FpofcSRHyMcfjgkpl4~r~b45W8CwYPplSvVqoJMHGY3KJLLc-wKJeCpYoo6CVjqbNZ2O8Y819Ciu-fJzo~gbYXdjUX886tdoH98kDrQ6c5WiT44Z7wvn7Wfg01Yk0fLka9WIwVr8flv9ZdDMSjUvByl1JpYuZXmgFdltHjelNcXFNFArwzbUTSqrqJWBHZIjxao0JDxGG5fJACLTEHBo~3PWMw__"
                 alt="avatar"
                 className="h-7 w-7 rounded-full object-cover"
               />{" "}
-            </picture>
           </span>
           <div className="space-y-1 w-full text-zinc-400 dark:text-zinc-500 text-[10px]  font-normal ">
             <span className="flex uppercase leading-3 font-medium w-full justify-between ">

@@ -1,5 +1,5 @@
 import { IconPlayerPlayFilled, IconMessage } from "@tabler/icons-react";
-import React = require("@theia/core/shared/react");
+import * as React from "@theia/core/shared/react";
 // import IconWaveForm from "../../src/icons/wave-form.svg";
 // import IconVolume from "../../src/icons/volume.svg";
 import { Badge } from "../components/ui/Badge";
@@ -41,12 +41,12 @@ export default function QuestionCard({
             <IconMessage size={12} stroke={1.5} strokeLinejoin="miter" />
           </Badge>
           <span className="flex min-h-7 min-w-7   rounded-full">
-              <img
-                crossOrigin="anonymous"
-                src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
-                alt="avatar"
-                className="h-7 w-7 rounded-full object-cover"
-              />{" "}
+            <img
+              crossOrigin="anonymous"
+              src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+              alt="avatar"
+              className="h-7 w-7 rounded-full object-cover"
+            />{" "}
           </span>
           <div className="space-y-1 w-full  dark:text-zinc-500 text-zinc-400 text-[10px]  font-normal ">
             <span className="flex uppercase leading-3 font-medium w-full justify-between ">
@@ -72,12 +72,12 @@ export default function QuestionCard({
             <IconMessage size={12} stroke={1.5} strokeLinejoin="miter" />
           </Badge>
           <span className="flex min-h-7 min-w-7   rounded-full">
-              <img
-                crossOrigin="anonymous"
-                src="https://s3-alpha-sig.figma.com/img/3c9c/ccbe/cfad2b1fe9b00018a8247cefd2d118d1?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KmqDdEGr5flM0JFYAMQKOFxA31lT633z7JDTmgum9wrfedjycPqqUPZL6ba7rIJxIC6sKCQPdRTVSwqw~Lje~wwzfATDkBMtti9c8mS37VgihuWTp~7N9YouRZa1FpofcSRHyMcfjgkpl4~r~b45W8CwYPplSvVqoJMHGY3KJLLc-wKJeCpYoo6CVjqbNZ2O8Y819Ciu-fJzo~gbYXdjUX886tdoH98kDrQ6c5WiT44Z7wvn7Wfg01Yk0fLka9WIwVr8flv9ZdDMSjUvByl1JpYuZXmgFdltHjelNcXFNFArwzbUTSqrqJWBHZIjxao0JDxGG5fJACLTEHBo~3PWMw__"
-                alt="avatar"
-                className="h-7 w-7 rounded-full object-cover"
-              />{" "}
+            <img
+              crossOrigin="anonymous"
+              src="https://s3-alpha-sig.figma.com/img/3c9c/ccbe/cfad2b1fe9b00018a8247cefd2d118d1?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KmqDdEGr5flM0JFYAMQKOFxA31lT633z7JDTmgum9wrfedjycPqqUPZL6ba7rIJxIC6sKCQPdRTVSwqw~Lje~wwzfATDkBMtti9c8mS37VgihuWTp~7N9YouRZa1FpofcSRHyMcfjgkpl4~r~b45W8CwYPplSvVqoJMHGY3KJLLc-wKJeCpYoo6CVjqbNZ2O8Y819Ciu-fJzo~gbYXdjUX886tdoH98kDrQ6c5WiT44Z7wvn7Wfg01Yk0fLka9WIwVr8flv9ZdDMSjUvByl1JpYuZXmgFdltHjelNcXFNFArwzbUTSqrqJWBHZIjxao0JDxGG5fJACLTEHBo~3PWMw__"
+              alt="avatar"
+              className="h-7 w-7 rounded-full object-cover"
+            />{" "}
           </span>
           <div className="space-y-1 w-full text-zinc-400 dark:text-zinc-500 text-[10px]  font-normal ">
             <span className="flex uppercase leading-3 font-medium w-full justify-between ">

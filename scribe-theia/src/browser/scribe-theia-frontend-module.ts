@@ -11,6 +11,9 @@ import "../../lib/browser/output-tailwind.css";
 import { ToolbarDefaultsOverride } from "./toolbar-defaults-override";
 import { bindAllToolbarContributions } from "./toolbar-contributions";
 import { bindAllWidgetsContributions } from "./widgets";
+import { ResourceManagerFactory } from "./resource-manager/resources-manager-factory";
+import { WidgetFactory } from "@theia/core/lib/browser";
+import { bindAllResourceManagerContributions } from "./resource-manager/bind";
 
 export default new ContainerModule(
   (
@@ -27,5 +30,6 @@ export default new ContainerModule(
     rebind(ToolbarDefaultsFactory).toConstantValue(ToolbarDefaultsOverride);
     bindAllToolbarContributions(bind);
     bindAllWidgetsContributions(bind);
+    bindAllResourceManagerContributions(bind);
   }
 );

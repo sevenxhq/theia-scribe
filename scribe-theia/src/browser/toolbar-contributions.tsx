@@ -38,8 +38,6 @@ export const NOTIFICATION_COMMAND = {
   label: "Show Notifications",
 };
 
-
-
 export const bindAllToolbarContributions = (bind: interfaces.Bind) => {
   bind(LayoutsToolbarContribution).toSelf().inSingletonScope();
   bind(ToolbarContribution).to(LayoutsToolbarContribution);
@@ -66,8 +64,9 @@ export class LayoutsToolbarContribution
     this.doHandleSaveClick(e);
   protected handleOpenClick = (e: ReactInteraction<HTMLSpanElement>): void =>
     this.doHandleOpenClick(e);
-  protected handleNotificationClick = (e: ReactInteraction<HTMLSpanElement>): void =>
-    this.doHandleNotificationClick(e);
+  protected handleNotificationClick = (
+    e: ReactInteraction<HTMLSpanElement>
+  ): void => this.doHandleNotificationClick(e);
   protected handleLockClick = (e: ReactInteraction<HTMLSpanElement>): void =>
     this.doHandleNotificationClick(e);
   protected doHandleLayoutClick(e: ReactInteraction<HTMLSpanElement>): void {
@@ -87,14 +86,16 @@ export class LayoutsToolbarContribution
     e.stopPropagation();
     this.commandService.executeCommand(OPEN_COMMAND.id);
   }
-  protected doHandleNotificationClick(e: ReactInteraction<HTMLSpanElement>): void {
+  protected doHandleNotificationClick(
+    e: ReactInteraction<HTMLSpanElement>
+  ): void {
     e.stopPropagation();
     this.commandService.executeCommand(NOTIFICATION_COMMAND.id);
   }
   render(): React.ReactNode {
     return (
       <div className="toolbar-wrapper">
-          <div
+        <div
           role="button"
           tabIndex={0}
           className="item enabled toolbar-item action-label"
@@ -116,7 +117,7 @@ export class LayoutsToolbarContribution
           <div className="codicon codicon-layout" />
           <span>Layout</span>
         </div>
-      
+
         <div
           role="button"
           tabIndex={0}

@@ -9,6 +9,8 @@ import { interfaces } from "@theia/core/shared/inversify";
 import { ResourcesViewerWidget } from "./resources-viewer-widget";
 import { ResourceManagerFrontendContribution } from "./resource-manager-contribution";
 import { ResourceManagerUtils } from "./utils";
+import { ResourceViewerFactory } from "./resource-viewer/resource-viewer-factory";
+import { ResourceViewerOpener } from "./resource-viewer/resource-viewer-opener";
 
 export const bindAllResourceManagerContributions = (bind: interfaces.Bind) => {
   bind(ResourcesViewerWidget).toSelf();
@@ -26,4 +28,9 @@ export const bindAllResourceManagerContributions = (bind: interfaces.Bind) => {
   bind(StylingParticipant).toService(ResourceManagerFrontendContribution);
 
   bind(ResourceManagerUtils).toSelf().inSingletonScope();
+
+  bind(ResourceViewerFactory).toSelf().inSingletonScope();
+  bind(WidgetFactory).toService(ResourceViewerFactory);
+
+  bind(ResourceViewerOpener).toSelf().inSingletonScope();
 };

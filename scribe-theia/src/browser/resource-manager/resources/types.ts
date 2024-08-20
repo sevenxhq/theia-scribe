@@ -5,6 +5,7 @@ import {
   BinaryBufferReadableStream,
 } from "@theia/core/lib/common/buffer";
 import { FileService } from "@theia/filesystem/lib/browser/file-service";
+import { ResourceViewerWidgetHandlers } from "../resource-viewer/resource-viewer-widget";
 
 export type ResourceDisplay<FullResource> = {
   id: string;
@@ -37,7 +38,10 @@ export type DownloadResourceUtils = {
   resourceFolderUri: URI;
 };
 
-export type ScribeResource<FullResource extends {} = {}> = {
+export type ScribeResource<
+  FullResource extends {} = {},
+  TData extends {} = {}
+> = {
   id: string;
   displayLabel: string;
 
@@ -46,7 +50,11 @@ export type ScribeResource<FullResource extends {} = {}> = {
     resourceInfo: ResourceInfo,
     utils: DownloadResourceUtils
   ) => Promise<ConfigResourceValues>;
+
   getTableDisplayData: () => Promise<ResourceDisplay<FullResource>[]>;
+
+  openHandlers: ResourceViewerWidgetHandlers<TData>;
+
   //   openResource: (
   //     resource: ConfigResourceValues,
   //     helpers: {
@@ -87,13 +95,13 @@ export type ConfigResourceValues = {
 
 // Generated types from the API using https://transform.tools/json-to-typescript
 
-export interface TwlApiResponse {
+export interface Door43ApiResponse {
   ok: boolean;
-  data: Twl[];
+  data: Door43RepoResponse[];
   last_updated: string;
 }
 
-export interface Twl {
+export interface Door43RepoResponse {
   id: number;
   url: string;
   name: string;

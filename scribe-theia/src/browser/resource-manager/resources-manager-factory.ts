@@ -45,3 +45,5 @@ export class ResourceManagerFactory implements WidgetFactory {
     return viewContainer;
   }
 }
+
+

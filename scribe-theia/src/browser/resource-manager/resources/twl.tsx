@@ -1,22 +1,24 @@
 import { URI } from "@theia/core";
 import {
   ScribeResource,
-  TwlApiResponse,
-  Twl,
   ConfigResourceValues,
+  Door43ApiResponse,
+  Door43RepoResponse,
 } from "./types";
 import { BinaryBuffer } from "@theia/core/lib/common/buffer";
 import moment from "moment";
 import { unzip } from "unzipit";
 
-export const tnResource: ScribeResource<Twl> = {
-  id: "codex.tn",
-  displayLabel: "Translation Notes",
+import * as React from "@theia/core/shared/react";
+
+export const twlResource: ScribeResource<Door43RepoResponse> = {
+  id: "codex.twl",
+  displayLabel: "Translation Words List",
 
   getTableDisplayData: async () => {
-    const resourceUrl = `https://git.door43.org/api/v1/catalog/search?subject=TSV Translation Notes&metadataType=rc`;
+    const resourceUrl = `https://git.door43.org/api/v1/catalog/search?subject=TSV Translation Words Links&metadataType=rc`;
     const response = await fetch(resourceUrl);
-    const responseJson = (await response.json()) as TwlApiResponse;
+    const responseJson = (await response.json()) as Door43ApiResponse;
     if (responseJson?.data) {
       return responseJson.data.map((resource) => ({
         id: resource.id.toString(),
@@ -31,14 +33,14 @@ export const tnResource: ScribeResource<Twl> = {
           releaseDate: new Date(resource.released),
         },
         fullResource: resource,
-        resourceType: tnResource.id,
+        resourceType: twlResource.id,
       }));
     }
     return [];
   },
 
   async downloadResource(resourceInfo, { fs, resourceFolderUri }) {
-    const fullResource = resourceInfo["fullResource"] as Twl;
+    const fullResource = resourceInfo["fullResource"] as Door43RepoResponse;
     const downloadProjectName = `${fullResource?.name}`;
     const downloadResourceFolder = resourceFolderUri.withPath(
       resourceFolderUri.path.join(downloadProjectName)
@@ -52,6 +54,11 @@ export const tnResource: ScribeResource<Twl> = {
       const item = result.entries[key];
 
       if (item.isDirectory) {
+        await fs.createFolder(
+          URI.fromFilePath(
+            downloadResourceFolder.path.join(item.name).toString()
+          )
+        );
       } else {
         const bufferContent = Buffer.from(await item.arrayBuffer());
         const path = [...item?.name?.split("/")];
@@ -62,6 +69,8 @@ export const tnResource: ScribeResource<Twl> = {
         await fs.writeFile(fileUri, BinaryBuffer.wrap(bufferContent));
       }
     }
+
+    console.log("Finished decompressing Zip");
 
     const metadataRes = await fetch(fullResource.metadata_json_url);
     const data = (await metadataRes.json()) as Record<string, any>;
@@ -74,6 +83,31 @@ export const tnResource: ScribeResource<Twl> = {
       ),
       BinaryBuffer.fromString(JSON.stringify(data))
     );
+
+    // vscode.window.showInformationMessage(
+    //   "Downloading linked resource for Translation Words List"
+    // );
+
+    // const linkedResource = await getLinkedTwResource(fullResource);
+
+    // let linkedDownloadResponse = null;
+
+    // if (linkedResource) {
+    //   linkedDownloadResponse = await twHandler.downloadResource(
+    //     linkedResource.fullResource,
+    //     {
+    //       resourceFolderUri: resourceFolderUri,
+    //       fs: fs,
+    //     }
+    //   );
+    //   vscode.window.showInformationMessage(
+    //     "Linked resource for Translation Words List downloaded successfully"
+    //   );
+    // } else {
+    //   vscode.window.showErrorMessage(
+    //     "Unable to download linked resource for Translation Words List"
+    //   );
+    // }
 
     const resourceReturn = {
       resource: fullResource,
@@ -90,8 +124,25 @@ export const tnResource: ScribeResource<Twl> = {
       type: resourceReturn?.type ?? "",
       remoteUrl: resourceReturn?.resource.url ?? "",
       version: resourceReturn?.resource.release.tag_name,
+      //   linkedTw: linkedDownloadResponse && {
+      //     ...linkedDownloadResponse,
+      //     localPath: linkedDownloadResponse.localPath.includes(
+      //       currentFolderURI.path
+      //     )
+      //       ? linkedDownloadResponse.localPath.replace(currentFolderURI.path, "")
+      //       : linkedDownloadResponse.localPath,
+      //   },
     };
 
     return downloadedResource;
+  },
+
+  openHandlers: {
+    async readResourceData(uri, fs) {
+      return {};
+    },
+    render(data) {
+      return <div>Translation Words List</div>;
+    },
   },
 };

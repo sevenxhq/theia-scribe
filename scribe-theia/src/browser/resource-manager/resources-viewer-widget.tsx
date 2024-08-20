@@ -1,5 +1,6 @@
 import * as React from "@theia/core/shared/react";
 import {
+  Message,
   ReactWidget,
   StorageService,
   WidgetManager,
@@ -25,6 +26,10 @@ import { ResourceManagerUtils } from "./utils";
 import { MainEditorLeftContribution } from "../widgets/MainEditorLeft";
 import { BottomEditorLeftContribution } from "../widgets/BottomEditorLeft";
 import { FrontendApplicationStateService } from "@theia/core/lib/browser/frontend-application-state";
+
+import { DynamicViewerOpener } from "../dynamic-viewer/dynamic-viewer-opener";
+import { ResourceViewerOpener } from "./resource-viewer/resource-viewer-opener";
+import { taResource } from "./resources/ta";
 
 @injectable()
 export class ResourcesViewerWidget extends ReactWidget {
@@ -55,6 +60,11 @@ export class ResourcesViewerWidget extends ReactWidget {
   @inject(StorageService)
   protected readonly memory: StorageService;
 
+  @inject(ResourceViewerOpener)
+  protected readonly resourceViewerOpener: ResourceViewerOpener;
+
+  private downloadedResources: ConfigResourceValues[] = [];
+
   @postConstruct()
   protected init() {
     this.id = ResourcesViewerWidget.ID;
@@ -65,7 +75,30 @@ export class ResourcesViewerWidget extends ReactWidget {
     this.node.tabIndex = 0;
   }
 
-  protected registeredResources: ScribeResource[] = [tnResource, twlResource];
+  protected onAfterAttach(msg: Message): void {
+    super.onAfterAttach(msg);
+    this.resourcesManagerUtils
+      .getDownloadedResourcesFromProjectConfig()
+      .then((resources) => {
+        this.downloadedResources = resources ?? [];
+        this.update();
+      });
+  }
+
+  protected onUpdateRequest(msg: Message): void {
+    this.resourcesManagerUtils
+      .getDownloadedResourcesFromProjectConfig()
+      .then((resources) => {
+        this.downloadedResources = resources ?? [];
+        super.onUpdateRequest(msg);
+      });
+  }
+
+  protected registeredResources: ScribeResource[] = [
+    tnResource,
+    twlResource,
+    taResource,
+  ];
 
   render() {
     const resourcesTypes = this.registeredResources.map((resource) => ({
@@ -76,25 +109,29 @@ export class ResourcesViewerWidget extends ReactWidget {
         this._downloadResource(resourceInfo, resource.downloadResource),
     }));
 
+    const openHandler = async (resourceInfo: ConfigResourceValues) => {
+      const resourceType = this.registeredResources.find(
+        (resource) => resource.id === resourceInfo.type
+      );
+
+      if (!resourceType) {
+        await this.messageService.error("Resource type not found");
+        return;
+      }
+
+      await this.resourceViewerOpener.open(
+        resourceInfo,
+        resourceType.openHandlers
+      );
+    };
+
     return (
       <div className="flex flex-col mx-4">
-        <button
-          onClick={async () => {
-            await this.mainEditorLeftContribution.closeView();
-            await this.mainEditorLeftContribution.openView({
-              mode: "split-top",
-              ref: await this.bottomEditorLeftContribution.widget,
-              activate: true,
-              rank: 100,
-              reveal: true,
-            });
-          }}
-          // onClick={() => this.widgetManager.tryGetWidget("scribe.ai-sidebar")}
-        >
-          Open Widget
-        </button>
-
-        <ResourcesTable resourcesTypes={resourcesTypes} />
+        <ResourcesTable
+          resourcesTypes={resourcesTypes}
+          downloadedResources={this.downloadedResources}
+          openResource={openHandler}
+        />
       </div>
     );
   }
@@ -123,10 +160,16 @@ export class ResourcesViewerWidget extends ReactWidget {
         currentFolderURI.path.join(".project", "resources")
       );
 
+      const prog = await this.messageService.showProgress({
+        text: "Downloading resource ...",
+      });
+
       const downloadedResource = await downloadHandler(resourceInfo, {
         fs,
         resourceFolderUri,
       });
+
+      prog.report({ message: "Updating the configuration" });
 
       const updatedDownloadedResourcePath = {
         ...downloadedResource,
@@ -143,53 +186,16 @@ export class ResourcesViewerWidget extends ReactWidget {
       await this.resourcesManagerUtils.addDownloadedResourceToProjectConfig(
         updatedDownloadedResourcePath
       );
+
+      this.update();
+      prog.cancel();
+
+      this.messageService.info("Resource downloaded successfully");
     } catch (error) {
       console.log(error);
       await this.messageService.error("Unable to download resource ...");
     }
   }
+
+  async openResourceWidget() {}
 }
-
-const FileServiceTest = ({
-  fs,
-  workspaceService,
-}: {
-  fs: FileService;
-  workspaceService: WorkspaceService;
-}) => {
-  const [root, setRoot] = React.useState<URI | undefined>(undefined);
-
-  React.useEffect(() => {
-    workspaceService.roots.then((roots) => {
-      setRoot(roots[0]?.resource);
-    });
-  }, []);
-
-  return (
-    <button
-      onClick={async () => {
-        if (!root) {
-          return;
-        }
-
-        console.log(
-          "Creating file at",
-          root?.withPath(root.path + "/hello.file").path
-        );
-        await fs.createFile(root?.withPath(root.path + "/hello.file")!);
-      }}
-    >
-      CLICK HERE TO CREATE A FILE
-    </button>
-  );
-};
-
-const stateServiceTest = ({
-  stateService,
-}: {
-  stateService: FrontendApplicationStateService;
-}) => {
-  return (
-    <button onClick={async () => {}}>SET STATE IN OTHER COMPONENTS</button>
-  );
-};

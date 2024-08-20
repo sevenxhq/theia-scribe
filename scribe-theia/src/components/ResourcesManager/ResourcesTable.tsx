@@ -6,6 +6,7 @@ import {
   VSCodeDropdown,
   VSCodeOption,
 } from "@vscode/webview-ui-toolkit/react";
+import { ConfigResourceValues } from "../../browser/resource-manager/resources/types";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends React.HTMLAttributes<T> {
@@ -17,6 +18,8 @@ const { useEffect, useRef, useState } = React;
 
 const ResourcesTable = ({
   resourcesTypes,
+  downloadedResources,
+  openResource,
 }: {
   resourcesTypes: {
     value: string;
@@ -24,6 +27,10 @@ const ResourcesTable = ({
     getTableDisplayData: () => Promise<any[]>; // TODO: type this
     downloadHandler: (resource: any) => void; // TODO: type this
   }[];
+
+  downloadedResources: ConfigResourceValues[];
+
+  openResource: (resource?: ConfigResourceValues) => void;
 }) => {
   const initRef = useRef(false);
   const [selectedResourceType, setSelectedResourceType] = useState<string>(
@@ -31,8 +38,6 @@ const ResourcesTable = ({
   );
 
   const [resourceTableData, setResourceTableData] = useState<any[]>([]);
-
-  const { downloadedResources } = useDownloadedResources();
 
   useEffect(() => {
     if (!selectedResourceType || resourcesTypes.length === 0) {
@@ -72,19 +77,6 @@ const ResourcesTable = ({
     if (selectedResourceTypeData) {
       selectedResourceTypeData.downloadHandler(resource);
     }
-  };
-
-  const handleOpenResource = (resource: DownloadedResource | undefined) => {
-    if (!resource) {
-      return;
-    }
-
-    // postMessage({
-    //   type: MessageType.OPEN_RESOURCE,
-    //   payload: {
-    //     resource: resource,
-    //   },
-    // });
   };
 
   const { importedOfflineResource, handleImportResource, handleAddResource } =
@@ -192,7 +184,7 @@ const ResourcesTable = ({
                     appearance="primary"
                     className="w-full"
                     onClick={() =>
-                      handleOpenResource(
+                      openResource(
                         downloadedResources.find(
                           (item) => item.id === resource.id
                         )

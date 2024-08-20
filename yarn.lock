@@ -2469,6 +2469,13 @@
     "@types/linkify-it" "*"
     "@types/mdurl" "*"
 
+"@types/marked@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@types/marked/-/marked-6.0.0.tgz#4dbc7df4add578ef87eb6ca2c6927c97b0531abf"
+  integrity sha512-jmjpa4BwUsmhxcfsgUit/7A9KbrC48Q0q8KvnY107ogcjGgTFDlIL3RpihNpx2Mu1hM4mdFQjoVc4O6JoGKHsA==
+  dependencies:
+    marked "*"
+
 "@types/mdurl@*":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/mdurl/-/mdurl-2.0.0.tgz#d43878b5b20222682163ae6f897b20447233bdfd"
@@ -3276,6 +3283,11 @@ bent@^7.1.0:
     bytesish "^0.4.1"
     caseless "~0.12.0"
     is-stream "^2.0.0"
+
+bible-reference-range@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/bible-reference-range/-/bible-reference-range-1.1.1.tgz#9438bb870f853439fa92afe61a04fab53922ab91"
+  integrity sha512-rEHpdcTrlJcLP/KuSl5hJjPND3EBD67m81hvDrSbZ48xyE1r6V7qgxUacDY2ZfT6nu1pBTkc6JizH9a+m3LMRQ==
 
 big-integer@^1.6.17:
   version "1.6.52"
@@ -6811,6 +6823,11 @@ markdown-it@^12.3.2:
     linkify-it "^3.0.1"
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
+
+marked@*, marked@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-14.0.0.tgz#79a1477358a59e0660276f8fec76de2c33f35d83"
+  integrity sha512-uIj4+faQ+MgHgwUW1l2PsPglZLOLOT1uErt06dAPtx2kjteLAkbsd/0FiYg/MGS+i7ZKLb7w2WClxHkzOOuryQ==
 
 matcher@^3.0.0:
   version "3.0.0"

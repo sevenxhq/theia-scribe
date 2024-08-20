@@ -548,3 +548,9 @@ export type ChapterVerseRef = {
 export type TwlBooksWithChaptersAndVerses = {
   [bookId: string]: ChapterVerseRef;
 };
+
+export type TranslationWord = {
+  name: string;
+  path: string;
+  ref: "names" | "other" | "kt";
+};

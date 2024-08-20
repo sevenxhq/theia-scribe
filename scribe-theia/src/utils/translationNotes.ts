@@ -17,7 +17,6 @@ export const getDocumentAsScriptureTSV = async (
   const doc = await fs.readFile(docUri);
 
   const text = doc.value.toString();
-  console.log("DOC: ", text);
 
   if (text.trim().length === 0) {
     return {};

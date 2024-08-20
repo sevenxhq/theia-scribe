@@ -70,13 +70,10 @@ export class ResourceViewerWidget<TData extends {}> extends ReactWidget {
         .readResourceData(this.resourceUri, this.fs)
         .then((data) => {
           if (_.isEqual(this.data, data)) {
-            console.log("Data is the same, not updating");
             return;
           }
           this.data = data;
           super.onUpdateRequest(msg);
-
-          console.log("Resource data: ", data);
         })
         .catch((err) => {
           console.error("Error reading resource data: ", err);
@@ -87,8 +84,6 @@ export class ResourceViewerWidget<TData extends {}> extends ReactWidget {
   }
 
   render(): ReactNode {
-    console.log("Rendering Resource Viewer");
-
     if (!this.resourceUri) {
       return <div>Resource URI not found</div>;
     }

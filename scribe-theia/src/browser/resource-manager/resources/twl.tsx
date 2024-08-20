@@ -70,8 +70,6 @@ export const twlResource: ScribeResource<Door43RepoResponse> = {
       }
     }
 
-    console.log("Finished decompressing Zip");
-
     const metadataRes = await fetch(fullResource.metadata_json_url);
     const data = (await metadataRes.json()) as Record<string, any>;
     data.agOffline = true;

@@ -25,11 +25,9 @@ import { FileService } from "@theia/filesystem/lib/browser/file-service";
 import { ResourceManagerUtils } from "./utils";
 import { MainEditorLeftContribution } from "../widgets/MainEditorLeft";
 import { BottomEditorLeftContribution } from "../widgets/BottomEditorLeft";
-import { FrontendApplicationStateService } from "@theia/core/lib/browser/frontend-application-state";
-
-import { DynamicViewerOpener } from "../dynamic-viewer/dynamic-viewer-opener";
 import { ResourceViewerOpener } from "./resource-viewer/resource-viewer-opener";
 import { taResource } from "./resources/ta";
+import { twResource } from "./resources/tw";
 
 @injectable()
 export class ResourcesViewerWidget extends ReactWidget {
@@ -98,6 +96,7 @@ export class ResourcesViewerWidget extends ReactWidget {
     tnResource,
     twlResource,
     taResource,
+    twResource,
   ];
 
   render() {
@@ -192,7 +191,7 @@ export class ResourcesViewerWidget extends ReactWidget {
 
       this.messageService.info("Resource downloaded successfully");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       await this.messageService.error("Unable to download resource ...");
     }
   }
